@@ -1,84 +1,94 @@
 import { Dispatch } from 'redux';
-import * as ProfileActions from '../actions/actions-profile'
-import * as ProfileServices from '../services/profile'
+import * as ProfileActions from '../actions/actions-profile';
+import * as ProfileServices from '../services/profile';
 import * as H from 'history';
 
 export function downloadProfile() {
-	return  (dispatch: Dispatch) => {
-		dispatch(ProfileActions.startProfileLoadAction());
-		const userUpdateProfile = ProfileServices.loadProfile();
-		try {
-			if (userUpdateProfile) userUpdateProfile.then((user) => {
-				dispatch(ProfileActions.successProfileLoadAction(user.data()))
-			}).catch(() => {
-				dispatch(ProfileActions.errorProfileLoadAction({error: 'Cannot Find user!'}))
-			})
-		} catch(error){ 
-			dispatch(ProfileActions.errorProfileLoadAction({...error.message}))
-		}
-	}
+  return (dispatch: Dispatch): void => {
+    dispatch(ProfileActions.startProfileLoadAction());
+    ProfileServices.loadProfile()
+      .then((user) => {
+        if (user) {
+          dispatch(ProfileActions.successProfileLoadAction(user.data()));
+        } else {
+          ProfileActions.errorProfileLoadAction({
+            error: 'Error!',
+          });
+        }
+      })
+      .catch(() => {
+        dispatch(
+          ProfileActions.errorProfileLoadAction({
+            error: 'Cannot Find user!',
+          })
+        );
+      });
+  };
 }
 
-
-export function uploadPhotoProfile(image: string, history: H.History) { 
-	return (dispatch: Dispatch)  => {
-		dispatch(ProfileActions.startUploadPhotoAction());
-		ProfileServices.updatePhotoProfile(image).then(() => { 
-			dispatch(ProfileActions.successUploadPhotoProfile())
-			history.push('/home')
-		}).catch(() => {
-			dispatch(ProfileActions.errorUploadPhotoProfile())
-		})
-	}
+export function uploadPhotoProfile(image: string, history: H.History) {
+  return (dispatch: Dispatch): void => {
+    dispatch(ProfileActions.startUploadPhotoAction());
+    ProfileServices.updatePhotoProfile(image)
+      .then((resolve) => {
+        if (resolve) {
+          dispatch(ProfileActions.successUploadPhotoProfile());
+          history.push('/home');
+        } else {
+          dispatch(ProfileActions.errorUploadPhotoProfile());
+        }
+      })
+      .catch(() => {
+        dispatch(ProfileActions.errorUploadPhotoProfile());
+      });
+  };
 }
-
 
 export function downloadPhotoProfile() {
-	return  (dispatch: Dispatch) => {
-		dispatch(ProfileActions.startDownloadPhotoAction());
-		const userDownloadPhoto = ProfileServices.downloadPhotoProfile();
-		try {
-			if (userDownloadPhoto) userDownloadPhoto.then((user) => {
-				dispatch(ProfileActions.successDownloadPhotoProfile(user))
-			}).catch(() => {
-				dispatch(ProfileActions.errorDownloadPhotoProfile({ url: '' }))
-			})
-		} catch(error){ 
-			dispatch(ProfileActions.errorDownloadPhotoProfile({  url: '' }))
-		}
-	}
+  return (dispatch: Dispatch): void => {
+    dispatch(ProfileActions.startDownloadPhotoAction());
+    ProfileServices.downloadPhotoProfile()
+      .then((user) => {
+        if (user) {
+          dispatch(ProfileActions.successDownloadPhotoProfile(user));
+        } else {
+          dispatch(ProfileActions.errorDownloadPhotoProfile({ url: '' }));
+        }
+      })
+      .catch(() => {
+        dispatch(ProfileActions.errorDownloadPhotoProfile({ url: '' }));
+      });
+  };
 }
 
-export function updateNameProfile(name:string,history: H.History) { 
-	return (dispatch: Dispatch) => { 
-		dispatch(ProfileActions.startUpdateNameProfile());
-		const userName = ProfileServices.updateNameProfile(name);
-		try {
-			if (userName) userName.then(() => {
-				dispatch(ProfileActions.successUpdateNameProfile())
-				history.push('/home')
-			}).catch(() => {
-				dispatch(ProfileActions.errorUpdateNameProfile())
-			})
-		} catch{ 
-			dispatch(ProfileActions.errorUpdateNameProfile())
-		}
-	}
+export function updateNameProfile(name: string, history: H.History) {
+  return (dispatch: Dispatch): void => {
+    dispatch(ProfileActions.startUpdateNameProfile());
+    ProfileServices.updateNameProfile(name)
+      .then((resolve) => {
+        if (resolve) {
+          dispatch(ProfileActions.successUpdateNameProfile());
+          history.push('/home');
+        } else {
+          dispatch(ProfileActions.errorUpdateNameProfile());
+        }
+      })
+      .catch(() => {
+        dispatch(ProfileActions.errorUpdateNameProfile());
+      });
+  };
 }
 
-export function updateSurnameProfile(surname: string,history: H.History) { 
-	return (dispatch: Dispatch) => { 
-		dispatch(ProfileActions.startUpdateSurnameProfile());
-		const userSurname = ProfileServices.updateSurnameProfile(surname);
-		try {
-			if (userSurname) userSurname.then(() => {
-				dispatch(ProfileActions.successUpdateSurnameProfile())
-				history.push('/home')
-			}).catch(() => {
-				dispatch(ProfileActions.errorUpdateSurnameProfile())
-			})
-		} catch{ 
-			dispatch(ProfileActions.errorUpdateSurnameProfile())
-		}
-	}
+export function updateSurnameProfile(surname: string, history: H.History) {
+  return (dispatch: Dispatch): void => {
+    dispatch(ProfileActions.startUpdateSurnameProfile());
+    ProfileServices.updateSurnameProfile(surname)
+      .then(() => {
+        dispatch(ProfileActions.successUpdateSurnameProfile());
+        history.push('/home');
+      })
+      .catch(() => {
+        dispatch(ProfileActions.errorUpdateSurnameProfile());
+      });
+  };
 }

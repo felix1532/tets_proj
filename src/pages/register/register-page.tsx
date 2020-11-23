@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import RegisterForm from './components/register-form/register-form';
+import { RegisterForm } from './components/register-form/register-form';
 import './styles.css';
 
-export default function RegisterPage(): JSX.Element {
+export const RegisterPage = React.memo(function RegisterPage(): JSX.Element {
   const history = useHistory();
 
   const handleClickLogin = () => {
@@ -28,4 +28,4 @@ export default function RegisterPage(): JSX.Element {
       <RegisterForm />
     </div>
   );
-}
+});

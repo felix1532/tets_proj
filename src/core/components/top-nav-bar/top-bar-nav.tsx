@@ -13,7 +13,7 @@ export default function TopBarNavigation(): JSX.Element {
   }, [dispatch, history]);
 
   return (
-    <div className='topnav'>
+    <div className='top-nav'>
       <div className='ling-container'>
         <Link to='/home'>Home</Link>
         <Link to='/editor'>Editor</Link>

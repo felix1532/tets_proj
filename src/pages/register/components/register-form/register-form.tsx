@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { register } from '../../../../core/thunks/auth';
 import './styles.css';
 
-export default function RegisterForm(): JSX.Element {
+export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState<string>('');
@@ -40,9 +40,10 @@ export default function RegisterForm(): JSX.Element {
   }, []);
 
   const registerHandler = useCallback(() => {
-    if (password !== repeatPassword) setDifferentPassword(true);
-    else {
-      dispatch(register(name, surname, email, password, history, dispatch));
+    if (password !== repeatPassword) {
+      setDifferentPassword(true);
+    } else {
+      dispatch(register(name, surname, email, password, history));
     }
   }, [name, surname, email, password, repeatPassword, dispatch, history]);
 
@@ -103,4 +104,4 @@ export default function RegisterForm(): JSX.Element {
       </form>
     </div>
   );
-}
+});

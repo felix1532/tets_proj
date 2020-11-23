@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import LoginPage from './pages/login/login-page';
-import RegisterPage from './pages/register/register-page';
-import HomePage from './pages/home/home-page';
+import { LoginPage } from './pages/login/login-page';
+import { RegisterPage } from './pages/register/register-page';
+import { HomePage } from './pages/home/home-page';
+import { ProfilePage } from './pages/profile/profile-page';
+import { EditorPage } from './pages/editor/components/editor-page';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,8 +18,6 @@ import { rootReducer } from './core/reducers/index';
 import { Provider } from 'react-redux';
 import { useEffect, useState } from 'react';
 import thunk from 'redux-thunk';
-import ProfilePage from './pages/profile/profile-page';
-import EditorPage from './pages/editor/components/editor-page';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 

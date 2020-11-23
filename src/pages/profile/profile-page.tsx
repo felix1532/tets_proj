@@ -8,11 +8,12 @@ import {
   updateSurnameProfile,
   uploadPhotoProfile,
 } from '../../core/thunks/profile';
+import { defaultProfilePage } from './default-state';
 import './styles.css';
 
-export default function ProfilePage(): JSX.Element {
+export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   const dispatch = useDispatch();
-  const state = useSelector(selectProfileState);
+  const stateProfile = useSelector(selectProfileState);
   const history = useHistory();
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
@@ -21,11 +22,11 @@ export default function ProfilePage(): JSX.Element {
   const [photo, setPhoto] = useState<string>('');
 
   useEffect(() => {
-    setName(state.user.name);
-    setSurname(state.user.surname);
-    setEmail(state.user.email);
-    setPhoto(state.avatarUrl);
-  }, [state]);
+    setName(stateProfile.user.name);
+    setSurname(stateProfile.user.surname);
+    setEmail(stateProfile.user.email);
+    setPhoto(stateProfile.avatarUrl);
+  }, [stateProfile]);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,10 +55,15 @@ export default function ProfilePage(): JSX.Element {
   }, []);
 
   const updateProfileHandler = useCallback(() => {
-    if (state.user.name !== name) dispatch(updateNameProfile(name, history));
-    if (state.user.surname !== surname)
+    if (stateProfile.user.name !== name) {
+      dispatch(updateNameProfile(name, history));
+    }
+    if (stateProfile.user.surname !== surname) {
       dispatch(updateSurnameProfile(surname, history));
-    if (image) dispatch(uploadPhotoProfile(image, history));
+    }
+    if (image) {
+      dispatch(uploadPhotoProfile(image, history));
+    }
   }, [name, surname, email, image, dispatch, history]);
 
   return (
@@ -67,10 +73,7 @@ export default function ProfilePage(): JSX.Element {
         <div className='profile-page'>
           <div className='image-cont'>
             <img
-              src={
-                photo ||
-                'https://www.pngfind.com/pngs/m/292-2924933_image-result-for-png-file-user-icon-black.png'
-              }
+              src={photo || defaultProfilePage.DEFAULT_IMAGE}
               alt='Avatar'
               className='avatar'
             />
@@ -84,9 +87,12 @@ export default function ProfilePage(): JSX.Element {
                   className='input-file'
                   onChange={handlePhotoUpdate}
                 />
-                <label htmlFor='file' className='btn btn-tertiary js-labelFile'>
+                <label
+                  htmlFor='file'
+                  className='btn btn-tertiary js-label-file'
+                >
                   <i className='icon fa fa-check'></i>
-                  <span className='js-fileName'>Upload photo</span>
+                  <span className='js-file-name'>Upload photo</span>
                 </label>
               </div>
             </div>
@@ -131,4 +137,4 @@ export default function ProfilePage(): JSX.Element {
       </div>
     </div>
   );
-}
+});

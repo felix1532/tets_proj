@@ -4,4 +4,7 @@ import { State } from '../reducers/profile';
 
 const profileState = (state: AppStates): State => state.profile;
 
-export const selectProfileState = createSelector(profileState, (state) => state);
+export const selectProfileState = createSelector(
+  profileState,
+  (state) => state
+);

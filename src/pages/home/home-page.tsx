@@ -7,11 +7,12 @@ import {
   downloadPhotoProfile,
   downloadProfile,
 } from '../../core/thunks/profile';
+import { defaultHomePage } from './default-state';
 import './styles.css';
 
-export default function HomePage(): JSX.Element {
+export const HomePage = React.memo(function HomePage(): JSX.Element {
   const dispatch = useDispatch();
-  const state = useSelector(selectProfileState);
+  const stateProfile = useSelector(selectProfileState);
   const history = useHistory();
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
@@ -24,11 +25,11 @@ export default function HomePage(): JSX.Element {
   }, [dispatch]);
 
   useEffect(() => {
-    setName(state.user.name);
-    setSurname(state.user.surname);
-    setEmail(state.user.email);
-    setPhoto(state.avatarUrl);
-  }, [state]);
+    setName(stateProfile.user.name);
+    setSurname(stateProfile.user.surname);
+    setEmail(stateProfile.user.email);
+    setPhoto(stateProfile.avatarUrl);
+  }, [stateProfile]);
 
   const handleClickCard = () => {
     history.push('/profile');
@@ -44,25 +45,24 @@ export default function HomePage(): JSX.Element {
               style={{
                 backgroundImage: photo
                   ? 'url(' + photo + ')'
-                  : 'url(https://www.pngfind.com/pngs/m/292-2924933_image-result-for-png-file-user-icon-black.png)',
+                  : `url(${defaultHomePage.DEFAULT_IMAGE})`,
               }}
             >
               <div className='property-image-title'></div>
             </div>
             <div className='property-description'>
-              <h2>
-                {' '}
-                {name || 'Name'} {surname || 'Surname'}
-              </h2>
-              <h4>{email || 'email'}</h4>
+              <h2>{`${name || defaultHomePage.NAME} ${
+                surname || defaultHomePage.SURNAME
+              }`}</h2>
+              <h4>{email || defaultHomePage.EMAIL}</h4>
             </div>
             <a href='#'>
               <div className='property-social-icons'></div>
             </a>
           </div>
         </div>
-        <div className='library_container'>Library </div>
+        <div className='library-container'>Library </div>
       </div>
     </div>
   );
-}
+});

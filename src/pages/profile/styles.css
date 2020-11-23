@@ -83,17 +83,17 @@
 	position:absolute;
 	z-index:-1
 }
-.example-2 .input-file + .js-labelFile{
+.example-2 .input-file + .js-label-file{
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap;
 	padding:0 10px;
 	cursor:pointer
 }
-.example-2 .input-file + .js-labelFile .icon:before{
+.example-2 .input-file + .js-label-file .icon:before{
 	content:"\f093"
 }
-.example-2 .input-file + .js-labelFile.has-file .icon:before{
+.example-2 .input-file + .js-label-file.has-file .icon:before{
 	content:"\f00c";
 	color:#5AAC7B
 }

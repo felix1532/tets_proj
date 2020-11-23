@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { signIn } from '../../../../core/thunks/auth';
 import { useAlert } from 'react-alert';
 
-export default function LoginForm(): JSX.Element {
+export const LoginForm = React.memo(function LoginForm(): JSX.Element {
   const alert = useAlert();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -59,4 +59,4 @@ export default function LoginForm(): JSX.Element {
       </form>
     </div>
   );
-}
+});
