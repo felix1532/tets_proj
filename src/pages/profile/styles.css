@@ -1,0 +1,99 @@
+
+.profile-page{
+	width: 380px;
+	height: 530px;
+	position: relative;
+	margin: 5% auto  0 auto;
+	background: #333;
+	padding: 10px;
+	border-radius: 30px;
+ }
+.container-profile-form{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.input-form-profile{
+	top: 220px;
+	width: 280px;
+}
+.input-field{
+	width: 100%;
+	padding: 10px 0;
+	margin: 5px 0;
+	border-left: 0;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid white;
+	outline: none;
+	background: transparent;
+	color: white;
+}
+.submit-button{
+	width: 85%;
+	padding: 10px 30px;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+	background: linear-gradient(to right, #ff105f,#ffad06);
+	outline: none;
+	border: 0;
+	border-radius: 30px;
+	margin-top: 20px;
+	color: white;
+}
+.password{
+	position: absolute;
+}
+
+.avatar{
+	height: 180px;
+	width: auto;
+	border-radius: 30px;
+	
+}
+.image-cont{
+	text-align: center;
+}
+.example-2{
+	margin-top: 10px;
+}
+
+.example-2 .btn-tertiary{
+	
+	color:rgb(233, 227, 227);
+	padding:0;
+	line-height:40px;
+	width:150px;
+	margin:auto;
+	display:block;
+	border:2px solid rgb(136, 133, 133)
+}
+
+.example-2 .btn-tertiary:hover,
+.example-2 .btn-tertiary:focus{
+	color:rgb(182, 178, 178);
+	border-color:rgb(172, 171, 171)
+}
+.example-2 .input-file{
+	width:.1px;
+	height:.1px;
+	opacity:0;
+	overflow:hidden;
+	position:absolute;
+	z-index:-1
+}
+.example-2 .input-file + .js-labelFile{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	padding:0 10px;
+	cursor:pointer
+}
+.example-2 .input-file + .js-labelFile .icon:before{
+	content:"\f093"
+}
+.example-2 .input-file + .js-labelFile.has-file .icon:before{
+	content:"\f00c";
+	color:#5AAC7B
+}
