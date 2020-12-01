@@ -1,0 +1,172 @@
+.wrapper{
+	height: 100%;
+	width: 100%;
+}
+p{
+	font-size: 16px;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	background-color: rgba(51, 51, 51, 0.63);
+}
+
+#controls, #properties {
+	color: white;
+	height: 100px;
+	background-color: rgba(51, 51, 51, 0.692);
+	border-bottom: 3px solid #cececed3;
+	text-align: center;
+	
+}
+
+.container{
+	float: left;
+	position: relative;
+	margin:  7px 0 0 0 ;
+	height: 80px;
+	width: 110px;
+	border-right: 1px solid white;
+	
+}
+
+.cont-position{
+	width: 150px;
+}
+
+.cont-size{
+	text-align: start;
+	width: 130px;
+	font-size: 16px;
+	
+}
+
+input[type='button'], input[type='file'] {
+	width: 115px;
+}
+
+input[type='number']{
+	width: 50px;
+	position: absolute;
+	right: 10px;
+}
+
+input[type='color']{
+	widows: 50px;
+	height: 40px;
+	margin: 10px 0 0 0px;
+}
+
+#controls .name{
+	text-align: center;
+	position: absolute;
+	bottom: -23px;
+	width: 80px;
+	text-align: center;
+	
+	font: 12px Arial;
+	color: rgba(255, 255, 255, 0.781);
+}
+
+.names{
+	text-align: center;
+	position: absolute;
+	bottom: -23px;
+	width: 80px;
+	text-align: center;
+	font: 12px Arial;
+	color: rgba(255, 255, 255, 0.753);
+}
+
+#tools-images{
+	width: 70px;
+	margin: 20px 0 10px 10px;
+}
+
+#tools-images img:hover , .tool-active{
+	cursor: pointer;
+	border: 1px solid white;
+}
+
+
+#tool-size ul{
+	list-style: none;
+	margin: 0 0 0 10px;
+	padding: 0;
+	font-size: 10px;
+
+}
+
+#tool-size li:hover, .size-active{
+	cursor: pointer;
+	border: 1px solid;
+	border-radius: 2px;
+	background-color: rgb(10, 146, 10);
+}
+
+
+
+#canvas-container{
+	position: relative;
+	margin: 5px 0 0 5px;
+}
+ #canvas-container:hover{
+	 cursor: pointer;
+ }
+
+ #front-canvas{
+	 position: absolute;
+	 left: 0;
+ }
+
+
+ #canvas{
+	 position: absolute;
+	 left: 0;
+	 background-color: white;
+ }
+
+ #properties{
+	 position: fixed;
+	 right: 60px;
+	 width: 210px;
+	 height: 190px;
+	 padding: 10px 10px 0 10px;
+	 display: none;
+ }
+
+ #properties input[type='number']{
+	 margin-right: 5px;
+	 width: 60px;
+
+ }
+
+ #properties-title{
+	 text-align: center;
+
+ }
+
+ #invert{
+	 width: 120px;
+ }
+
+.input-number{
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
+	border-radius: 10px;
+}
+
+.size-container{
+	float: left;
+	position: relative;
+	margin: 7px 0 0 0 ;
+	height: 80px;
+	width: 110px;
+	border-right: 1px solid white;
+}
+
+.btn{
+	padding: 3px 15px;
+	margin-top: 5px;
+}

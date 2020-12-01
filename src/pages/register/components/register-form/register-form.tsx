@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
+import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { register } from '../../../../core/thunks/auth';
 import './styles.css';
 
 export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const history = useHistory();
   const [name, setName] = useState<string>('');
@@ -42,8 +44,9 @@ export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
   const registerHandler = useCallback(() => {
     if (password !== repeatPassword) {
       setDifferentPassword(true);
+      alert.error('Error: password are different');
     } else {
-      dispatch(register(name, surname, email, password, history));
+      dispatch(register(name, surname, email, password, history, alert));
     }
   }, [name, surname, email, password, repeatPassword, dispatch, history]);
 

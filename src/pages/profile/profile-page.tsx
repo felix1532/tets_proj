@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import { selectProfileState } from '../../core/selectors/profile-selector';
 import {
+  downloadPhotoProfile,
+  downloadProfile,
   updateNameProfile,
   updateSurnameProfile,
   uploadPhotoProfile,
@@ -12,6 +15,7 @@ import { defaultProfilePage } from './default-state';
 import './styles.css';
 
 export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const stateProfile = useSelector(selectProfileState);
   const history = useHistory();
@@ -20,6 +24,11 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [image, setImage] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
+
+  useEffect(() => {
+    dispatch(downloadProfile());
+    dispatch(downloadPhotoProfile());
+  }, [dispatch]);
 
   useEffect(() => {
     setName(stateProfile.user.name);
@@ -44,25 +53,28 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
     setEmail(value);
   }, []);
 
-  const handlePhotoUpdate = useCallback((e) => {
+  const handlePhotoUpdate = useCallback((event) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         setImage(reader.result as string);
+        alert.success('Photo success download', {
+          timeout: 2000,
+        });
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(event.target.files[0]);
   }, []);
 
   const updateProfileHandler = useCallback(() => {
     if (stateProfile.user.name !== name) {
-      dispatch(updateNameProfile(name, history));
+      dispatch(updateNameProfile(name, history, alert));
     }
     if (stateProfile.user.surname !== surname) {
-      dispatch(updateSurnameProfile(surname, history));
+      dispatch(updateSurnameProfile(surname, history, alert));
     }
     if (image) {
-      dispatch(uploadPhotoProfile(image, history));
+      dispatch(uploadPhotoProfile(image, history, alert));
     }
   }, [name, surname, email, image, dispatch, history]);
 
@@ -73,7 +85,7 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
         <div className='profile-page'>
           <div className='image-cont'>
             <img
-              src={photo || defaultProfilePage.DEFAULT_IMAGE}
+              src={image || photo || defaultProfilePage.DEFAULT_IMAGE}
               alt='Avatar'
               className='avatar'
             />
@@ -82,6 +94,7 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
               <div className='form-group'>
                 <input
                   type='file'
+                  accept='image/jpeg,image/png,image/gif'
                   name='file'
                   id='file'
                   className='input-file'

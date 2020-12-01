@@ -1,15 +1,14 @@
-import { auth } from '../config/firebase-config';
 import firebase from 'firebase';
 
 export const signIn = (
   login: string,
   password: string
 ): Promise<firebase.auth.UserCredential> => {
-  return auth.signInWithEmailAndPassword(login, password);
+  return firebase.auth().signInWithEmailAndPassword(login, password);
 };
 
 export const signOut = (): Promise<void> => {
-  return auth.signOut();
+  return firebase.auth().signOut();
 };
 
 export const register = (
@@ -18,7 +17,8 @@ export const register = (
   email: string,
   password: string
 ): Promise<void> => {
-  return auth
+  return firebase
+    .auth()
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       //Firestore

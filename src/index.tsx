@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import thunk from 'redux-thunk';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import * as serviceWorker from './serviceWorker';
 
 const store = createStore(
   rootReducer,
@@ -31,37 +32,38 @@ const store = createStore(
 );
 
 function App(): JSX.Element {
-  const [login, setLogin] = useState<boolean>(true);
+  const [login, setLogin] = useState<boolean>(false);
+  const [user, setUser] = useState<boolean>(false);
 
   useEffect(() => {
-    Firebase.auth.onAuthStateChanged((user) => {
+    Firebase.authentication.onAuthStateChanged((user) => {
       if (!user) {
         setLogin(true);
       } else {
-        setLogin(false);
+        setUser(true);
       }
     });
-  }, [login]);
-  console.log(login);
+  }, []);
 
   return (
     <Router>
       <Switch>
         <Route exact path='/' component={LoginPage} />
         <Route path='/register' component={RegisterPage} />
-        <Route path='/home' component={HomePage} />
+        {user && <Route path='/home' component={HomePage} />}
+        {user && <Route path='/profile' component={ProfilePage} />}
+        {user && <Route path='/editor' component={EditorPage} />}
+        <Route path='*' exact={true} component={LoginPage} />
         {login && <Redirect to='/' />}
-        <Route path='/profile' component={ProfilePage} />
-        <Route path='/editor' component={EditorPage} />
       </Switch>
     </Router>
   );
 }
 
 const options = {
-  position: positions.BOTTOM_CENTER,
+  position: positions.TOP_CENTER,
   timeout: 4000,
-  offset: '40px',
+  offset: '10px',
   transition: transitions.SCALE,
 };
 
@@ -75,3 +77,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorker.unregister();

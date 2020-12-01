@@ -4,6 +4,7 @@ export const loadProfile = (): Promise<
   firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 > => {
   const user = firebase.auth().currentUser;
+  console.log(user);
   return user
     ? firebase.firestore().collection('users').doc(user.uid).get()
     : Promise.resolve(null);

@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
+import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { signOut } from '../../thunks/auth';
 import './styles.css';
 
 export default function TopBarNavigation(): JSX.Element {
+  const alert = useAlert();
   const history = useHistory();
   const dispatch = useDispatch();
 
   const handleSignOut = useCallback(() => {
-    dispatch(signOut(history));
+    dispatch(signOut(history, alert));
   }, [dispatch, history]);
 
   return (

@@ -14,8 +14,7 @@ export const LoginForm = React.memo(function LoginForm(): JSX.Element {
   const [password, setPassword] = useState<string>('');
 
   const logInHandler = useCallback(() => {
-    dispatch(signIn(login, password, history));
-    alert.show('Oh so good alert!', { type: 'error' });
+    dispatch(signIn(login, password, history, alert));
   }, [login, password, history, dispatch]);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {

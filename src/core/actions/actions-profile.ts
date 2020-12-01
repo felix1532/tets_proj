@@ -52,8 +52,7 @@ export const successDownloadPhotoProfile = createAction(
   (payload: { url: string }) => payload
 );
 export const errorDownloadPhotoProfile = createAction(
-  ProfileActionsType.ERROR_DOWNLOAD_PHOTO_PROFILE,
-  (payload: { url: '' }) => payload
+  ProfileActionsType.ERROR_DOWNLOAD_PHOTO_PROFILE
 );
 
 export const startUpdateNameProfile = createAction(
