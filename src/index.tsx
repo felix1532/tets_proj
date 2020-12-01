@@ -5,7 +5,7 @@ import { LoginPage } from './pages/login/login-page';
 import { RegisterPage } from './pages/register/register-page';
 import { HomePage } from './pages/home/home-page';
 import { ProfilePage } from './pages/profile/profile-page';
-import { EditorPage } from './pages/editor/components/editor-page';
+import { EditorPage } from './pages/editor/editor-page';
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +21,7 @@ import thunk from 'redux-thunk';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import * as serviceWorker from './serviceWorker';
+import { PrivateRoute } from './core/components/private-route/private-route';
 
 const store = createStore(
   rootReducer,
@@ -50,9 +51,9 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path='/' component={LoginPage} />
         <Route path='/register' component={RegisterPage} />
-        {user && <Route path='/home' component={HomePage} />}
-        {user && <Route path='/profile' component={ProfilePage} />}
-        {user && <Route path='/editor' component={EditorPage} />}
+        <PrivateRoute component={HomePage} user={user} path='/home' />
+        <PrivateRoute component={ProfilePage} user={user} path='/profile' />
+        <PrivateRoute component={EditorPage} user={user} path='/editor' />
         <Route path='*' exact={true} component={LoginPage} />
         {login && <Redirect to='/' />}
       </Switch>

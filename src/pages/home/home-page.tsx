@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import { selectProfileState } from '../../core/selectors/profile-selector';
+import { downloadGalleryPhoto } from '../../core/thunks/gallery';
 import {
   downloadPhotoProfile,
   downloadProfile,
@@ -19,9 +20,16 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
 
+  const backgroundImage = {
+    backgroundImage: photo
+      ? 'url(' + photo + ')'
+      : `url(${defaultHomePage.DEFAULT_IMAGE})`,
+  };
+
   useEffect(() => {
     dispatch(downloadProfile());
     dispatch(downloadPhotoProfile());
+    dispatch(downloadGalleryPhoto());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,14 +48,7 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
       <div className='container-home-page'>
         <div className='center'>
           <div className='property-card' onClick={handleClickCard}>
-            <div
-              className='property-image'
-              style={{
-                backgroundImage: photo
-                  ? 'url(' + photo + ')'
-                  : `url(${defaultHomePage.DEFAULT_IMAGE})`,
-              }}
-            >
+            <div className='property-image' style={backgroundImage}>
               <div className='property-image-title'></div>
             </div>
             <div className='property-description'>
