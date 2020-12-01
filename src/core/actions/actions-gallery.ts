@@ -10,7 +10,7 @@ export const startDownloadPhotoGallery = createAction(
 );
 export const successDownloadPhotoGallery = createAction(
   GalleryActionsType.SUCCESS_DOWNLOAD_PHOTO_GALLERY,
-  (payload: string[]) => payload
+  (payload: { listPhoto: string[] }) => payload
 );
 export const errorDownloadPhotoGallery = createAction(
   GalleryActionsType.ERROR_DOWNLOAD_PHOTO_GALLERY,

@@ -8,12 +8,19 @@ export function downloadGalleryPhoto() {
     GalleryServices.downloadGalleryPhoto()
       .then((user) => {
         if (user) {
-          console.log(user);
-          //GalleryActions.successDownloadPhotoGallery(['str']);
+          const listPhoto: Array<string> = [];
+          user.items.map(async (item) =>
+            listPhoto.push(await item.getDownloadURL())
+          );
+          dispatch(
+            GalleryActions.successDownloadPhotoGallery({ listPhoto: listPhoto })
+          );
         } else {
-          GalleryActions.errorDownloadPhotoGallery({
-            error: 'Error!',
-          });
+          dispatch(
+            GalleryActions.errorDownloadPhotoGallery({
+              error: 'Error!',
+            })
+          );
         }
       })
       .catch((error) => {

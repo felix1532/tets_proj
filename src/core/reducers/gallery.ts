@@ -23,7 +23,7 @@ export const reducer = handleActions<State>(
       action: AnyAction
     ) => ({
       ...state,
-      gallery: [...action.payload],
+      gallery: action.payload,
       isLoading: false,
     }),
     [GalleryActionsType.ERROR_DOWNLOAD_PHOTO_GALLERY]: (state: State) => ({
