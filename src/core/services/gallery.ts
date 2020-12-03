@@ -1,8 +1,12 @@
 import firebase from 'firebase';
 
-export const downloadGalleryPhoto = (): Promise<firebase.storage.ListResult> => {
+export const downloadGalleryPhoto = async (): Promise<any> => {
   const user = firebase.auth().currentUser;
-  return user
-    ? firebase.storage().ref().child('library').child(user.uid).listAll()
-    : Promise.resolve(null);
+  const listPhoto = await firebase
+    .storage()
+    .ref()
+    .child('library')
+    .child(user.uid)
+    .list();
+  return listPhoto.items.map(async (photo) => await photo.getDownloadURL());
 };

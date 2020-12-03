@@ -1,5 +1,4 @@
 export interface Props {
-  canvasContext: React.MutableRefObject<CanvasRenderingContext2D>;
   saveImageHandler: () => void;
   coorXCanvas: number;
   coorYCanvas: number;
@@ -10,4 +9,5 @@ export interface Props {
   setWidth: React.Dispatch<React.SetStateAction<number>>;
   width: number;
   height: number;
+  clearCanvas: () => void;
 }

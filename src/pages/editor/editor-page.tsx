@@ -78,16 +78,24 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
 
   const saveImageHandler = () => {
     dispatch(saveImageCanvas(canvasRef.current.toDataURL(), alert));
+    clearCanvas();
+  };
+
+  const clearCanvas = () => {
+    return (
+      contextCanvas.current &&
+      contextCanvas.current.clearRect(0, 0, +width, +height)
+    );
   };
 
   return (
     <div className='wrapper'>
       <TopBarNavigation />
       <Controls
-        canvasContext={contextCanvas}
         saveImageHandler={saveImageHandler}
         coorXCanvas={coorXCanvas}
         coorYCanvas={coorYCanvas}
+        clearCanvas={clearCanvas}
         setColor={setColor}
         setDrawingTool={setDrawingTool}
         setLineWidth={setLineWidth}

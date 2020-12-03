@@ -3,7 +3,6 @@ import { Props } from './controls-props';
 import { defaultValue } from '../default-value';
 
 export const Controls = React.memo(function Controls({
-  canvasContext,
   saveImageHandler,
   coorXCanvas,
   coorYCanvas,
@@ -14,6 +13,7 @@ export const Controls = React.memo(function Controls({
   setWidth,
   width,
   height,
+  clearCanvas,
 }: Props): JSX.Element {
   const handleColor = (event: React.MouseEvent<HTMLInputElement>) => {
     setColor(event.currentTarget.value);
@@ -37,13 +37,6 @@ export const Controls = React.memo(function Controls({
     } else {
       setHeight(+event.target.value);
     }
-  };
-
-  const clearCanvas = () => {
-    return (
-      canvasContext.current &&
-      canvasContext.current.clearRect(0, 0, +width, +height)
-    );
   };
 
   const handleChoosePencil = () => {

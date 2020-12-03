@@ -8,13 +8,9 @@ export function downloadGalleryPhoto() {
     GalleryServices.downloadGalleryPhoto()
       .then((user) => {
         if (user) {
-          const listPhoto: Array<string> = [];
-          user.items.map(async (item) =>
-            listPhoto.push(await item.getDownloadURL())
-          );
-          dispatch(
-            GalleryActions.successDownloadPhotoGallery({ listPhoto: listPhoto })
-          );
+          Promise.all(user).then((values: any) => {
+            dispatch(GalleryActions.successDownloadPhotoGallery(values));
+          });
         } else {
           dispatch(
             GalleryActions.errorDownloadPhotoGallery({

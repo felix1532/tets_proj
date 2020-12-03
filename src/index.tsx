@@ -20,7 +20,6 @@ import { useEffect, useState } from 'react';
 import thunk from 'redux-thunk';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-import * as serviceWorker from './serviceWorker';
 import { PrivateRoute } from './core/components/private-route/private-route';
 
 const store = createStore(
@@ -78,5 +77,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-serviceWorker.unregister();

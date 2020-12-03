@@ -135,3 +135,22 @@ p
   background-color:blue;
   cursor:pointer;
 }
+
+.container-gallery{
+	margin-top: 20px;
+	margin-left: 50px;
+}
+
+.image-style{
+	height: 200px;
+	width: 300px;
+	background-color: white;
+}
+
+.gallery-item{
+	display: flex;
+	flex-direction: row;
+}
+.content{
+	margin: 10px;
+}

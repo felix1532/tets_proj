@@ -2,23 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
+import { selectGalleryState } from '../../core/selectors/gallery-selector';
 import { selectProfileState } from '../../core/selectors/profile-selector';
 import { downloadGalleryPhoto } from '../../core/thunks/gallery';
 import {
   downloadPhotoProfile,
   downloadProfile,
 } from '../../core/thunks/profile';
+import { Gallery } from './components/gallery';
 import { defaultHomePage } from './default-state';
 import './styles.css';
 
-export const HomePage = React.memo(function HomePage(): JSX.Element {
-  const dispatch = useDispatch();
-  const stateProfile = useSelector(selectProfileState);
+export function HomePage(): JSX.Element {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const stateProfile = useSelector(selectProfileState);
+  const stateGallery = useSelector(selectGalleryState);
+
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
+  const [gallery, setGallery] = useState<Array<string>>([]);
 
   const backgroundImage = {
     backgroundImage: photo
@@ -27,10 +33,14 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
   };
 
   useEffect(() => {
+    dispatch(downloadGalleryPhoto());
     dispatch(downloadProfile());
     dispatch(downloadPhotoProfile());
-    dispatch(downloadGalleryPhoto());
   }, [dispatch]);
+
+  useEffect(() => {
+    setGallery(stateGallery.gallery);
+  }, [stateGallery]);
 
   useEffect(() => {
     setName(stateProfile.user.name);
@@ -57,13 +67,12 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
               }`}</h2>
               <h4>{email || defaultHomePage.EMAIL}</h4>
             </div>
-            <a href='#'>
-              <div className='property-social-icons'></div>
-            </a>
           </div>
         </div>
-        <div className='library-container'>Library </div>
+        <div className='container-gallery'>
+          <Gallery gallery={gallery} />
+        </div>
       </div>
     </div>
   );
-});
+}
