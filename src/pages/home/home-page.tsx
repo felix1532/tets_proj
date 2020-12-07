@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
+import { ListPhotos } from '../../core/interfaces/listPhotos';
 import { selectGalleryState } from '../../core/selectors/gallery-selector';
 import { selectProfileState } from '../../core/selectors/profile-selector';
 import { downloadGalleryPhoto } from '../../core/thunks/gallery';
@@ -24,7 +25,7 @@ export function HomePage(): JSX.Element {
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
-  const [gallery, setGallery] = useState<Array<string>>([]);
+  const [gallery, setGallery] = useState<Array<ListPhotos>>([]);
 
   const backgroundImage = {
     backgroundImage: photo
@@ -69,9 +70,7 @@ export function HomePage(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className='container-gallery'>
-          <Gallery gallery={gallery} />
-        </div>
+        <Gallery gallery={gallery} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import './styles.css';
 import { useDispatch } from 'react-redux';
@@ -6,11 +6,14 @@ import { saveImageCanvas } from '../../core/thunks/editor';
 import { useAlert } from 'react-alert';
 import { Controls } from './components/controls';
 import { defaultValue } from './default-value';
+import { useLocation } from 'react-router-dom';
+import { ListPhotos } from '../../core/interfaces/listPhotos';
 
 export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const contextCanvas = React.useRef<CanvasRenderingContext2D>(null);
   const dispatch = useDispatch();
+  const location = useLocation<ListPhotos>();
   const alert = useAlert();
 
   const [color, setColor] = useState(defaultValue.blackColor);
@@ -21,6 +24,21 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const [lineWidth, setLineWidth] = useState(defaultValue.lineWidth);
   const [width, setWidth] = useState(defaultValue.width);
   const [height, setHeight] = useState(defaultValue.height);
+  const [elemListPhoto, setElemListPhoto] = useState<ListPhotos>({
+    photo: '',
+    fullPath: '',
+  });
+
+  useEffect(() => {
+    contextCanvas.current = canvasRef.current.getContext('2d');
+    if (location.state) {
+      setElemListPhoto(location.state);
+      const photo = new Image();
+      photo.src = location.state.photo;
+
+      contextCanvas.current.drawImage(photo, 0, 0);
+    }
+  }, []);
 
   const handleMouseDownCanvas = (
     event: React.MouseEvent<HTMLCanvasElement>

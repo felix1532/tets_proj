@@ -20,6 +20,7 @@ p
 
 .container-home-page{
 	display: flex;
+	justify-content: space-around;
 }
 
 .library-container{
@@ -138,7 +139,6 @@ p
 
 .container-gallery{
 	margin-top: 20px;
-	margin-left: 50px;
 }
 
 .image-style{
