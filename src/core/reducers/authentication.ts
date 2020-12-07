@@ -13,7 +13,7 @@ const initialState = {
   signInError: '',
   signOutError: '',
   registerError: '',
-  isLoading: false,
+  isLoading: true,
 };
 
 export const reducer = handleActions(

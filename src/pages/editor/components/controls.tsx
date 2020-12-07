@@ -25,7 +25,7 @@ export const Controls = React.memo(function Controls({
 
   const handleWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (+event.target.value > +event.target.max) {
-      setWidth(+event.target.max);
+      setWidth(+event.target.max - 10);
     } else {
       setWidth(+event.target.value);
     }

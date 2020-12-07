@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Loading } from '../../core/components/loading/loading';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import { selectProfileState } from '../../core/selectors/profile-selector';
 import {
@@ -24,6 +25,7 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [image, setImage] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
+  const [loadingProfile, setLoadingProfile] = useState<boolean>(true);
 
   useEffect(() => {
     dispatch(downloadProfile());
@@ -35,6 +37,7 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
     setSurname(stateProfile.user.surname);
     setEmail(stateProfile.user.email);
     setPhoto(stateProfile.avatarUrl);
+    setLoadingProfile(stateProfile.fieldsLoading || stateProfile.photoLoading);
   }, [stateProfile]);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -81,73 +84,77 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   return (
     <div>
       <TopBarNavigation />
-      <div className='profile-container'>
-        <div className='profile-page'>
-          <div className='image-cont'>
-            <img
-              src={image || photo || defaultProfilePage.DEFAULT_IMAGE}
-              alt='Avatar'
-              className='avatar'
-            />
+      {loadingProfile ? (
+        <Loading color='#fff' size='large' />
+      ) : (
+        <div className='profile-container'>
+          <div className='profile-page'>
+            <div className='image-cont'>
+              <img
+                src={image || photo || defaultProfilePage.DEFAULT_IMAGE}
+                alt='Avatar'
+                className='avatar'
+              />
 
-            <div className='example-2'>
-              <div className='form-group'>
-                <input
-                  type='file'
-                  accept='image/jpeg,image/png,image/gif'
-                  name='file'
-                  id='file'
-                  className='input-file'
-                  onChange={handlePhotoUpdate}
-                />
-                <label
-                  htmlFor='file'
-                  className='btn btn-tertiary js-label-file'
-                >
-                  <i className='icon fa fa-check'></i>
-                  <span className='js-file-name'>Upload photo</span>
-                </label>
+              <div className='example-2'>
+                <div className='form-group'>
+                  <input
+                    type='file'
+                    accept='image/jpeg,image/png,image/gif'
+                    name='file'
+                    id='file'
+                    className='input-file'
+                    onChange={handlePhotoUpdate}
+                  />
+                  <label
+                    htmlFor='file'
+                    className='btn btn-tertiary js-label-file'
+                  >
+                    <i className='icon fa fa-check'></i>
+                    <span className='js-file-name'>Upload photo</span>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div className='container-profile-form'>
-            <form className='input-form-profile' onSubmit={submitHandler}>
-              <input
-                type='text'
-                className='input-field '
-                placeholder='Name...'
-                value={name}
-                onChange={changeInputName}
-                required
-              />
-              <input
-                type='text'
-                className='input-field'
-                placeholder='Surname...'
-                value={surname}
-                onChange={changeInputSurname}
-                required
-              />
-              <input
-                type='text'
-                className='input-field '
-                placeholder='Login...'
-                value={email}
-                onChange={changeInputEmail}
-                required
-                disabled
-              />
-              <button
-                type='submit'
-                className='submit-button'
-                onClick={updateProfileHandler}
-              >
-                Save
-              </button>
-            </form>
+            <div className='container-profile-form'>
+              <form className='input-form-profile' onSubmit={submitHandler}>
+                <input
+                  type='text'
+                  className='input-field '
+                  placeholder='Name...'
+                  value={name}
+                  onChange={changeInputName}
+                  required
+                />
+                <input
+                  type='text'
+                  className='input-field'
+                  placeholder='Surname...'
+                  value={surname}
+                  onChange={changeInputSurname}
+                  required
+                />
+                <input
+                  type='text'
+                  className='input-field '
+                  placeholder='Login...'
+                  value={email}
+                  onChange={changeInputEmail}
+                  required
+                  disabled
+                />
+                <button
+                  type='submit'
+                  className='submit-button'
+                  onClick={updateProfileHandler}
+                >
+                  Save
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 });

@@ -2,8 +2,6 @@ import { ListPhotos } from './../interfaces/listPhotos';
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
 import { GalleryActionsType } from '../actions/actions-gallery';
-import { Gallery } from '../../pages/home/components/gallery';
-import { stat } from 'fs';
 
 export interface State {
   gallery: Array<ListPhotos>;
@@ -13,7 +11,7 @@ export interface State {
 
 const initialState = {
   gallery: [{ photo: '', fullPath: '' }],
-  isLoading: false,
+  isLoading: true,
   error: '',
 };
 

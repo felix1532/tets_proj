@@ -8,7 +8,7 @@ export interface State {
 }
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   errorUpload: '',
 };
 
@@ -28,7 +28,7 @@ export const reducer = handleActions<State>(
       action: AnyAction
     ) => ({
       ...state,
-      isLoading: false,
+      isLoading: true,
       errorUpload: action.payload,
     }),
   },

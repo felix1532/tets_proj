@@ -12,9 +12,11 @@ export function downloadGalleryPhoto() {
           Promise.all(user).then((values: any) => {
             Promise.all(values.map((item: any) => item.photo)).then(
               (listPhoto: any) => {
-                const arrayPhotos = listPhoto.map((val: any, index: any) => {
-                  return { photo: val, fullPath: values[index].fullPath };
-                });
+                const arrayPhotos = listPhoto.map(
+                  (val: string, index: number) => {
+                    return { photo: val, fullPath: values[index].fullPath };
+                  }
+                );
 
                 dispatch(
                   GalleryActions.successDownloadPhotoGallery(arrayPhotos)
@@ -43,7 +45,7 @@ export function downloadGalleryPhoto() {
 export function deletePhotoGallery(fullPath: string, alert: AlertManager) {
   return (dispatch: Dispatch): void => {
     dispatch(GalleryActions.startDeletePhotoGallery());
-    GalleryServices.deletePhotoGallerry(fullPath)
+    GalleryServices.deletePhotoGallery(fullPath)
       .then(() => {
         dispatch(GalleryActions.successDeletePhotoGallery());
         alert.success('Photo deleted!');

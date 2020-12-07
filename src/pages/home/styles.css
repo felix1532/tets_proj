@@ -60,7 +60,7 @@ p
   border-radius:16px;
   overflow:hidden;
   -webkit-box-shadow:  15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
-  box-shadow:  -15px -15px 27px #333;
+  box-shadow:  -6px -6px 16px rgba(0, 0, 0, 0.829);
   background-color: white;
 }
 /* ^-- The margin bottom is necessary for the drop shadow otherwise it gets clipped in certain cases. */

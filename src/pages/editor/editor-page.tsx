@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import './styles.css';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { Controls } from './components/controls';
 import { defaultValue } from './default-value';
 import { useLocation } from 'react-router-dom';
 import { ListPhotos } from '../../core/interfaces/listPhotos';
+import photo from '../../assets/images/myphoto.jpg';
 
 export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -24,18 +25,12 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const [lineWidth, setLineWidth] = useState(defaultValue.lineWidth);
   const [width, setWidth] = useState(defaultValue.width);
   const [height, setHeight] = useState(defaultValue.height);
-  const [elemListPhoto, setElemListPhoto] = useState<ListPhotos>({
-    photo: '',
-    fullPath: '',
-  });
 
   useEffect(() => {
     contextCanvas.current = canvasRef.current.getContext('2d');
     if (location.state) {
-      setElemListPhoto(location.state);
       const photo = new Image();
       photo.src = location.state.photo;
-
       contextCanvas.current.drawImage(photo, 0, 0);
     }
   }, []);

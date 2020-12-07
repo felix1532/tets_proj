@@ -14,6 +14,8 @@ export const downloadGalleryPhoto = async (): Promise<any> => {
   );
 };
 
-export const deletePhotoGallerry = (fullPath: string): Promise<any> => {
+export const deletePhotoGallery = (
+  fullPath: string
+): Promise<firebase.storage.Reference> => {
   return firebase.storage().ref(fullPath).delete();
 };

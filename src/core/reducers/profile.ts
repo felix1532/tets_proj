@@ -5,7 +5,8 @@ import { ProfileActionsType } from '../actions/actions-profile';
 
 export interface State {
   uploaded: boolean;
-  isLoading: boolean;
+  fieldsLoading: boolean;
+  photoLoading: boolean;
   avatarUrl: string;
   errorAvatar: string;
   errorProfile: string;
@@ -14,7 +15,8 @@ export interface State {
 
 const initialState = {
   uploaded: false,
-  isLoading: false,
+  fieldsLoading: true,
+  photoLoading: true,
   avatarUrl: '',
   errorAvatar: '',
   errorProfile: '',
@@ -29,7 +31,7 @@ export const reducer = handleActions<State>(
   {
     [ProfileActionsType.START_LOAD_PROFILE]: (state: State) => ({
       ...state,
-      isLoading: true,
+      fieldsLoading: true,
     }),
     [ProfileActionsType.SUCCESS_LOAD_PROFILE]: (
       state: State,
@@ -37,7 +39,7 @@ export const reducer = handleActions<State>(
     ) => ({
       ...state,
       user: action.payload,
-      isLoading: false,
+      fieldsLoading: false,
       errorProfile: '',
     }),
     [ProfileActionsType.ERROR_LOAD_PROFILE]: (
@@ -45,12 +47,12 @@ export const reducer = handleActions<State>(
       action: AnyAction
     ) => ({
       ...state,
-      isLoading: false,
+      fieldsLoading: false,
       errorProfile: action.payload,
     }),
     [ProfileActionsType.START_DOWNLOAD_PHOTO_PROFILE]: (state: State) => ({
       ...state,
-      isLoading: true,
+      photoLoading: true,
     }),
     [ProfileActionsType.SUCCESS_DOWNLOAD_PHOTO_PROFILE]: (
       state: State,
@@ -59,15 +61,15 @@ export const reducer = handleActions<State>(
       ...state,
       avatarUrl: action.payload,
       errorAvatar: '',
-      isLoading: false,
+      photoLoading: false,
     }),
-    [ProfileActionsType.START_DOWNLOAD_PHOTO_PROFILE]: (
+    [ProfileActionsType.ERROR_DOWNLOAD_PHOTO_PROFILE]: (
       state: State,
       action: AnyAction
     ) => ({
       ...state,
       errorAvatar: action.payload,
-      isLoading: false,
+      photoLoading: false,
     }),
   },
   initialState

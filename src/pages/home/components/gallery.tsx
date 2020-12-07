@@ -40,27 +40,38 @@ export function Gallery({ gallery }: Props): JSX.Element {
     dispatch(deletePhotoGallery(gallery[indexListPhoto].fullPath, alert));
   };
 
+  const addPhotoHandler = () => {
+    history.push('/editor');
+  };
+
   return (
     <div className='container-gallery'>
-      <div className='child-page-listing'>
-        <div className='grid-container'>
-          {gallery.map((photoSrc, index) => {
-            return (
-              <article className='location-listing' key={index}>
-                <a className='edit' onClick={handleEditPhoto}>
-                  Edit
-                </a>
-                <a className='delete' onClick={handleDeletePhoto}>
-                  Delete
-                </a>
-                <div className='location-image'>
-                  <img className='photo-gallery' src={photoSrc.photo} />
-                </div>
-              </article>
-            );
-          })}
+      {gallery.length !== 0 ? (
+        <div className='child-page-listing'>
+          <div className='grid-container'>
+            {gallery.map((photoSrc, index) => {
+              return (
+                <article className='location-listing' key={index}>
+                  <a className='edit' onClick={handleEditPhoto}>
+                    Edit
+                  </a>
+                  <a className='delete' onClick={handleDeletePhoto}>
+                    Delete
+                  </a>
+                  <div className='location-image'>
+                    <img className='photo-gallery' src={photoSrc.photo} />
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className='no-photo-container' onClick={addPhotoHandler}>
+          <p className='no-photo-text'>You have no photo at the moment...</p>
+          <button className='btn btn-primary add-button'>Add photo</button>
+        </div>
+      )}
     </div>
   );
 }
