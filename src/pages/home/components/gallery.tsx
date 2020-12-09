@@ -6,7 +6,9 @@ import { deletePhotoGallery } from '../../../core/thunks/gallery';
 import './styles.css';
 import { Props } from './types';
 
-export function Gallery({ gallery }: Props): JSX.Element {
+export const Gallery = React.memo(function Gallery({
+  gallery,
+}: Props): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -63,4 +65,4 @@ export function Gallery({ gallery }: Props): JSX.Element {
       )}
     </div>
   );
-}
+});

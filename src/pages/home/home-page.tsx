@@ -14,7 +14,7 @@ import {
 import { Gallery } from './components/gallery';
 import './styles.css';
 
-export function HomePage(): JSX.Element {
+export const HomePage = React.memo(function HomePage(): JSX.Element {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -80,4 +80,4 @@ export function HomePage(): JSX.Element {
       )}
     </div>
   );
-}
+});
