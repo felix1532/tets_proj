@@ -3,8 +3,8 @@ import { useCallback } from 'react';
 import './styles.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { signIn } from '../../../../core/thunks/auth';
 import { useAlert } from 'react-alert';
+import { signingInAction } from '../../../../core/actions/auth';
 
 export const LoginForm = React.memo(function LoginForm(): JSX.Element {
   const alert = useAlert();
@@ -14,7 +14,7 @@ export const LoginForm = React.memo(function LoginForm(): JSX.Element {
   const [password, setPassword] = useState<string>('');
 
   const logInHandler = useCallback(() => {
-    dispatch(signIn(login, password, history, alert));
+    dispatch(signingInAction({ login, password, history, alert }));
   }, [login, password, history, dispatch]);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {

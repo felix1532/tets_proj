@@ -1,4 +1,6 @@
 import { createAction } from 'redux-actions';
+import * as H from 'history';
+import { AlertManager } from 'react-alert';
 
 export enum AuthActionTypes {
   SIGN_IN = '[AUTH] SIGN_IN',
@@ -14,7 +16,15 @@ export enum AuthActionTypes {
   ERROR_REGISTER = '[AUTH] ERROR_REGISTER',
 }
 
-export const signingInAction = createAction(AuthActionTypes.SIGN_IN);
+export const signingInAction = createAction(
+  AuthActionTypes.SIGN_IN,
+  (payload: {
+    login: string;
+    password: string;
+    history: H.History;
+    alert: AlertManager;
+  }) => payload
+);
 export const successSignInAction = createAction(
   AuthActionTypes.SUCCESS_SIGN_IN
 );
@@ -23,7 +33,10 @@ export const errorSignInAction = createAction(
   (payload: { error: string }) => payload
 );
 
-export const signingOutAction = createAction(AuthActionTypes.SIGNING_OUT);
+export const signingOutAction = createAction(
+  AuthActionTypes.SIGNING_OUT,
+  (payload: { history: H.History; alert: AlertManager }) => payload
+);
 export const successSignOutAction = createAction(
   AuthActionTypes.SUCCESS_SIGN_OUT
 );

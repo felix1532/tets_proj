@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { signOut } from '../../thunks/auth';
+import { signingOutAction } from '../../actions/auth';
 import './styles.css';
 
 export default function TopBarNavigation(): JSX.Element {
@@ -11,7 +11,7 @@ export default function TopBarNavigation(): JSX.Element {
   const dispatch = useDispatch();
 
   const handleSignOut = useCallback(() => {
-    dispatch(signOut(history, alert));
+    dispatch(signingOutAction({ alert, history }));
   }, [dispatch, history]);
 
   return (
