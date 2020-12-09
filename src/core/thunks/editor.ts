@@ -1,5 +1,5 @@
 import * as EditorServices from './../services/editor';
-import * as EditorActions from '../actions/actions-editor';
+import * as EditorActions from '../actions/editor';
 import { Dispatch } from 'redux';
 import { AlertManager } from 'react-alert';
 

@@ -1,6 +1,9 @@
 import firebase from 'firebase';
+import { ItemGallery } from '../interfaces/item-gallery';
 
-export const downloadGalleryPhoto = async (): Promise<any> => {
+export const downloadGalleryPhoto = async (): Promise<
+  Array<Promise<ItemGallery>>
+> => {
   const user = firebase.auth().currentUser;
   const listPhoto = await firebase
     .storage()
@@ -10,7 +13,11 @@ export const downloadGalleryPhoto = async (): Promise<any> => {
     .list();
   return listPhoto.items.map(
     async (photo) =>
-      await { photo: photo.getDownloadURL(), fullPath: photo.fullPath }
+      await {
+        photo: photo.getDownloadURL(),
+        fullPath: photo.fullPath,
+        //timeCreated: photo.getMetadata(),
+      }
   );
 };
 

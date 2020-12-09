@@ -2,13 +2,9 @@ import React from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ListPhotos } from '../../../core/interfaces/listPhotos';
 import { deletePhotoGallery } from '../../../core/thunks/gallery';
 import './styles.css';
-
-interface Props {
-  gallery: Array<ListPhotos>;
-}
+import { Props } from './types';
 
 export function Gallery({ gallery }: Props): JSX.Element {
   const history = useHistory();
@@ -18,26 +14,15 @@ export function Gallery({ gallery }: Props): JSX.Element {
   const handleEditPhoto = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    const srcPhoto = event.currentTarget.parentNode.lastElementChild.lastElementChild.getAttribute(
-      'src'
-    );
-    const indexListPhoto = gallery.findIndex(
-      (item: ListPhotos) => item.photo === srcPhoto
-    );
-
-    history.push('/editor', gallery[indexListPhoto]);
+    history.push('/editor', gallery[+event.currentTarget.id]);
   };
 
   const handleDeletePhoto = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    const srcPhoto = event.currentTarget.parentNode.lastElementChild.lastElementChild.getAttribute(
-      'src'
+    dispatch(
+      deletePhotoGallery(gallery[+event.currentTarget.id].fullPath, alert)
     );
-    const indexListPhoto = gallery.findIndex(
-      (item: ListPhotos) => item.photo === srcPhoto
-    );
-    dispatch(deletePhotoGallery(gallery[indexListPhoto].fullPath, alert));
   };
 
   const addPhotoHandler = () => {
@@ -52,10 +37,14 @@ export function Gallery({ gallery }: Props): JSX.Element {
             {gallery.map((photoSrc, index) => {
               return (
                 <article className='location-listing' key={index}>
-                  <a className='edit' onClick={handleEditPhoto}>
+                  <a className='edit' onClick={handleEditPhoto} id={`${index}`}>
                     Edit
                   </a>
-                  <a className='delete' onClick={handleDeletePhoto}>
+                  <a
+                    className='delete'
+                    onClick={handleDeletePhoto}
+                    id={`${index}`}
+                  >
                     Delete
                   </a>
                   <div className='location-image'>

@@ -1,7 +1,7 @@
 import { User } from './../interfaces/user';
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
-import { ProfileActionsType } from '../actions/actions-profile';
+import { ProfileActionsType } from '../actions/profile';
 
 export interface State {
   uploaded: boolean;

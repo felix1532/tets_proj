@@ -1,7 +1,7 @@
 import React from 'react';
-import { Props } from './controls-props';
-import { defaultValue } from '../default-value';
-
+import { Props } from './types';
+import { ControlsConfig } from '../../controls-config';
+import { PrettoSlider } from '../slider/slider';
 export const Controls = React.memo(function Controls({
   saveImageHandler,
   coorXCanvas,
@@ -15,36 +15,42 @@ export const Controls = React.memo(function Controls({
   height,
   clearCanvas,
 }: Props): JSX.Element {
-  const handleColor = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColor(event.currentTarget.value);
   };
 
-  const handleLineWidth = (event: any) => {
-    setLineWidth(+event.target.value);
+  const handleLineWidth = (
+    event: React.ChangeEvent<{ textContent?: string }>
+  ) => {
+    event.target.textContent
+      ? setLineWidth(+event.target.textContent)
+      : setLineWidth(6);
   };
 
   const handleWidth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > +event.target.max) {
-      setWidth(+event.target.max - 10);
+    const { target } = event;
+    if (+target.value > +target.max) {
+      setWidth(+target.max - 10);
     } else {
-      setWidth(+event.target.value);
+      setWidth(+target.value);
     }
   };
 
   const handleHeight = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (+event.target.value > +event.target.max - 170) {
-      setHeight(+event.target.max - 170);
+    const { target } = event;
+    if (+target.value > +target.max - 170) {
+      setHeight(+target.max - 170);
     } else {
-      setHeight(+event.target.value);
+      setHeight(+target.value);
     }
   };
 
   const handleChoosePencil = () => {
-    setDrawingTool(defaultValue.pencil);
+    setDrawingTool(ControlsConfig.pencil);
   };
 
   const handleChooseEraser = () => {
-    setDrawingTool(defaultValue.eraser);
+    setDrawingTool(ControlsConfig.eraser);
   };
 
   return (
@@ -101,36 +107,31 @@ export const Controls = React.memo(function Controls({
         <div id='tools-images'>
           <img
             id='pencil'
-            src={defaultValue.pencilPng}
+            src={ControlsConfig.pencilPng}
             onClick={handleChoosePencil}
           />
           <img
             id='eraser'
-            src={defaultValue.eraserPng}
+            src={ControlsConfig.eraserPng}
             onClick={handleChooseEraser}
           />
         </div>
         <p className='names'>Tools</p>
       </div>
-      <div id='tool-size' className='container '>
-        <details open>
-          <summary>Size</summary>
-          <ul onClick={handleLineWidth}>
-            <li id='small' value={6}>
-              Small
-            </li>
-            <li id='middle' value={10}>
-              Middle
-            </li>
-            <li id='big' value={14}>
-              Big
-            </li>
-          </ul>
-        </details>
+      <div id='tool-size' className='container cont-size'>
+        <PrettoSlider
+          valueLabelDisplay='auto'
+          aria-label='pretto slider'
+          defaultValue={6}
+          step={1}
+          min={2}
+          max={15}
+          onChange={handleLineWidth}
+        />
         <p className='names'>Tool Size</p>
       </div>
       <div id='color' className='container '>
-        <input type='color' onMouseLeave={handleColor} defaultValue='#333' />
+        <input type='color' onChange={handleColor} defaultValue='#333' />
         <p className='name'>Color</p>
       </div>
     </div>

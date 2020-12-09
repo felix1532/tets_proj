@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Loading } from '../../core/components/loading/loading';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
-import { ListPhotos } from '../../core/interfaces/listPhotos';
-import { selectGalleryState } from '../../core/selectors/gallery-selector';
-import { selectProfileState } from '../../core/selectors/profile-selector';
+import { ListPhotos } from '../../core/interfaces/list-photos';
+import { selectGalleryState } from '../../core/selectors/gallery';
+import { selectProfileState } from '../../core/selectors/profile';
 import { downloadGalleryPhoto } from '../../core/thunks/gallery';
 import {
   downloadPhotoProfile,
   downloadProfile,
 } from '../../core/thunks/profile';
 import { Gallery } from './components/gallery';
-import { defaultHomePage } from './default-state';
 import './styles.css';
 
 export function HomePage(): JSX.Element {
@@ -33,7 +32,7 @@ export function HomePage(): JSX.Element {
   const backgroundImage = {
     backgroundImage: photo
       ? 'url(' + photo + ')'
-      : `url(${defaultHomePage.DEFAULT_IMAGE})`,
+      : `url(https://www.pngfind.com/pngs/m/292-2924933_image-result-for-png-file-user-icon-black.png)`,
   };
 
   useEffect(() => {
@@ -71,10 +70,8 @@ export function HomePage(): JSX.Element {
                 <div className='property-image-title'></div>
               </div>
               <div className='property-description'>
-                <h2>{`${name || defaultHomePage.NAME} ${
-                  surname || defaultHomePage.SURNAME
-                }`}</h2>
-                <h4>{email || defaultHomePage.EMAIL}</h4>
+                <h2>{`${name || 'name'} ${surname || 'surname'}`}</h2>
+                <h4>{email || 'email'}</h4>
               </div>
             </div>
           </div>

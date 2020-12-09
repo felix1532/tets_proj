@@ -4,11 +4,10 @@ import './styles.css';
 import { useDispatch } from 'react-redux';
 import { saveImageCanvas } from '../../core/thunks/editor';
 import { useAlert } from 'react-alert';
-import { Controls } from './components/controls';
-import { defaultValue } from './default-value';
+import { Controls } from './components/controls/controls';
+import { ControlsConfig } from './controls-config';
 import { useLocation } from 'react-router-dom';
-import { ListPhotos } from '../../core/interfaces/listPhotos';
-import photo from '../../assets/images/myphoto.jpg';
+import { ListPhotos } from '../../core/interfaces/list-photos';
 
 export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -17,14 +16,14 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const location = useLocation<ListPhotos>();
   const alert = useAlert();
 
-  const [color, setColor] = useState(defaultValue.blackColor);
+  const [color, setColor] = useState(ControlsConfig.blackColor);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [coorXCanvas, setCoorXCanvas] = useState(defaultValue.coordinateX);
-  const [coorYCanvas, setCoorYCanvas] = useState(defaultValue.coordinateY);
-  const [drawingTool, setDrawingTool] = useState(defaultValue.pencil);
-  const [lineWidth, setLineWidth] = useState(defaultValue.lineWidth);
-  const [width, setWidth] = useState(defaultValue.width);
-  const [height, setHeight] = useState(defaultValue.height);
+  const [coorXCanvas, setCoorXCanvas] = useState(ControlsConfig.coordinateX);
+  const [coorYCanvas, setCoorYCanvas] = useState(ControlsConfig.coordinateY);
+  const [drawingTool, setDrawingTool] = useState(ControlsConfig.pencil);
+  const [lineWidth, setLineWidth] = useState(ControlsConfig.lineWidth);
+  const [width, setWidth] = useState(ControlsConfig.width);
+  const [height, setHeight] = useState(ControlsConfig.height);
 
   useEffect(() => {
     contextCanvas.current = canvasRef.current.getContext('2d');
@@ -43,13 +42,14 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   };
 
   const drawing = (color: string) => {
-    contextCanvas.current.lineWidth = lineWidth;
-    contextCanvas.current.lineCap = 'round';
-    contextCanvas.current.strokeStyle = color;
-    contextCanvas.current.lineTo(coorXCanvas, coorYCanvas);
-    contextCanvas.current.stroke();
-    contextCanvas.current.beginPath();
-    contextCanvas.current.moveTo(coorXCanvas, coorYCanvas);
+    const { current } = contextCanvas;
+    current.lineWidth = lineWidth;
+    current.lineCap = 'round';
+    current.strokeStyle = color;
+    current.lineTo(coorXCanvas, coorYCanvas);
+    current.stroke();
+    current.beginPath();
+    current.moveTo(coorXCanvas, coorYCanvas);
   };
 
   const handleMouseMoveCanvas = (
@@ -63,16 +63,18 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
     contextCanvas.current = event.currentTarget.getContext('2d');
 
     switch (drawingTool) {
-      case defaultValue.pencil:
-        if (!isDrawing) return;
-        else {
+      case ControlsConfig.pencil:
+        if (!isDrawing) {
+          return;
+        } else {
           drawing(color);
           break;
         }
-      case defaultValue.eraser:
-        if (!isDrawing) return;
-        else {
-          drawing(defaultValue.whiteColor);
+      case ControlsConfig.eraser:
+        if (!isDrawing) {
+          return;
+        } else {
+          drawing(ControlsConfig.whiteColor);
           break;
         }
     }
@@ -85,8 +87,8 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
 
   const handleLeaveMouseCanvas = () => {
     handleMouseUpCanvas();
-    setCoorXCanvas(defaultValue.coordinateX);
-    setCoorYCanvas(defaultValue.coordinateY);
+    setCoorXCanvas(ControlsConfig.coordinateX);
+    setCoorYCanvas(ControlsConfig.coordinateY);
   };
 
   const saveImageHandler = () => {

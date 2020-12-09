@@ -38,7 +38,9 @@ export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
 
   const changeInputRepeatPassword = useCallback(({ target: { value } }) => {
     setRepeatPassword(value);
-    if (password === repeatPassword) setDifferentPassword(false);
+    if (password === repeatPassword) {
+      setDifferentPassword(false);
+    }
   }, []);
 
   const registerHandler = useCallback(() => {

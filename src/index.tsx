@@ -13,7 +13,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import * as Firebase from './core/config/firebase-config';
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { rootReducer } from './core/reducers/index';
 import { Provider } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -21,14 +21,11 @@ import thunk from 'redux-thunk';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import { PrivateRoute } from './core/components/private-route/private-route';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 function App(): JSX.Element {

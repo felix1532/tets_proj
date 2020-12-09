@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
-import { EditorActionsType } from '../actions/actions-editor';
+import { EditorActionsType } from '../actions/editor';
 
 export interface State {
   isLoading: boolean;

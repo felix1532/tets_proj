@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Loading } from '../../core/components/loading/loading';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
-import { selectProfileState } from '../../core/selectors/profile-selector';
+import { readAsDataUrl } from '../../core/helpers/read-as-data-url';
+import { selectProfileState } from '../../core/selectors/profile';
 import {
   downloadPhotoProfile,
   downloadProfile,
@@ -12,7 +13,6 @@ import {
   updateSurnameProfile,
   uploadPhotoProfile,
 } from '../../core/thunks/profile';
-import { defaultProfilePage } from './default-state';
 import './styles.css';
 
 export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
@@ -56,24 +56,19 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
     setEmail(value);
   }, []);
 
-  const handlePhotoUpdate = useCallback((event) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImage(reader.result as string);
-        alert.success('Photo success download', {
-          timeout: 2000,
-        });
-      }
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  }, []);
+  const handlePhotoUpdate = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      readAsDataUrl(event, alert, setImage);
+    },
+    []
+  );
 
   const updateProfileHandler = useCallback(() => {
-    if (stateProfile.user.name !== name) {
+    const { user } = stateProfile;
+    if (user.name !== name) {
       dispatch(updateNameProfile(name, history, alert));
     }
-    if (stateProfile.user.surname !== surname) {
+    if (user.surname !== surname) {
       dispatch(updateSurnameProfile(surname, history, alert));
     }
     if (image) {
@@ -91,7 +86,11 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
           <div className='profile-page'>
             <div className='image-cont'>
               <img
-                src={image || photo || defaultProfilePage.DEFAULT_IMAGE}
+                src={
+                  image ||
+                  photo ||
+                  'https://www.pngfind.com/pngs/m/292-2924933_image-result-for-png-file-user-icon-black.png'
+                }
                 alt='Avatar'
                 className='avatar'
               />

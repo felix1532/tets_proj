@@ -1,23 +1,29 @@
 import { AlertManager } from 'react-alert';
 import { Dispatch } from 'redux';
-import * as GalleryActions from '../actions/actions-gallery';
+import * as GalleryActions from '../actions/gallery';
+import { ItemGallery } from '../interfaces/item-gallery';
 import * as GalleryServices from '../services/gallery';
 
 export function downloadGalleryPhoto() {
   return (dispatch: Dispatch): void => {
     dispatch(GalleryActions.startDownloadPhotoGallery());
     GalleryServices.downloadGalleryPhoto()
-      .then((user) => {
-        if (user) {
-          Promise.all(user).then((values: any) => {
-            Promise.all(values.map((item: any) => item.photo)).then(
-              (listPhoto: any) => {
+      .then((listPromises) => {
+        if (listPromises) {
+          Promise.all(listPromises).then((list: Array<ItemGallery>) => {
+            Promise.all(list.map((item: ItemGallery) => item.photo)).then(
+              (listPhoto: Array<firebase.default.storage.Reference>) => {
                 const arrayPhotos = listPhoto.map(
-                  (val: string, index: number) => {
-                    return { photo: val, fullPath: values[index].fullPath };
+                  (
+                    photo: firebase.default.storage.Reference,
+                    index: number
+                  ) => {
+                    return {
+                      photo: `${photo}`,
+                      fullPath: list[index].fullPath,
+                    };
                   }
                 );
-
                 dispatch(
                   GalleryActions.successDownloadPhotoGallery(arrayPhotos)
                 );

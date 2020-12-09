@@ -1,7 +1,7 @@
 import eraser from '../../assets/icons/eraser.png';
 import pencil from '../../assets/icons/pencil.png';
 
-export const defaultValue = {
+export const ControlsConfig = {
   eraserPng: eraser,
   pencilPng: pencil,
   whiteColor: '#fff',

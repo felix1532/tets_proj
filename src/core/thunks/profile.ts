@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import * as ProfileActions from '../actions/actions-profile';
+import * as ProfileActions from '../actions/profile';
 import * as ProfileServices from '../services/profile';
 import * as H from 'history';
 import { AlertManager } from 'react-alert';

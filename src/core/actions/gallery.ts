@@ -1,5 +1,5 @@
-import { ListPhotos } from './../interfaces/listPhotos';
-import { createAction, createActions } from 'redux-actions';
+import { ListPhotos } from '../interfaces/list-photos';
+import { createAction } from 'redux-actions';
 export enum GalleryActionsType {
   START_DOWNLOAD_PHOTO_GALLERY = '[GALLERY] START_DOWNLOAD_PHOTO_GALLERY',
   SUCCESS_DOWNLOAD_PHOTO_GALLERY = '[GALLERY] SUCCESS_DOWNLOAD_PHOTO_GALLERY',

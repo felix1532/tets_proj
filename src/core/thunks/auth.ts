@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import * as AuthService from '../services/authentication';
-import * as ActionsAuth from '../actions/actions-auth';
+import * as ActionsAuth from '../actions/auth';
 import * as H from 'history';
 import { AlertManager } from 'react-alert';
 

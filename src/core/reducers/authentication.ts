@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
-import { AuthActionTypes } from '../actions/actions-auth';
+import { AuthActionTypes } from '../actions/auth';
 
 export interface State {
   signInError: string;

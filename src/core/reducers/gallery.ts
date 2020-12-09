@@ -1,7 +1,7 @@
-import { ListPhotos } from './../interfaces/listPhotos';
+import { ListPhotos } from '../interfaces/list-photos';
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
-import { GalleryActionsType } from '../actions/actions-gallery';
+import { GalleryActionsType } from '../actions/gallery';
 
 export interface State {
   gallery: Array<ListPhotos>;

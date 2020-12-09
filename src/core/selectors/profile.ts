@@ -1,4 +1,4 @@
-import { AppStates } from './../reducers/index';
+import { AppStates } from '../reducers/index';
 import { createSelector } from 'reselect';
 import { State } from '../reducers/profile';
 
