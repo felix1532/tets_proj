@@ -2,7 +2,7 @@ import React from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { deletePhotoGallery } from '../../../core/thunks/gallery';
+import { requestDeletePhotoGallery } from '../../../core/actions/gallery';
 import './styles.css';
 import { Props } from './types';
 
@@ -23,7 +23,10 @@ export const Gallery = React.memo(function Gallery({
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     dispatch(
-      deletePhotoGallery(gallery[+event.currentTarget.id].fullPath, alert)
+      requestDeletePhotoGallery({
+        fullPath: gallery[+event.currentTarget.id].fullPath,
+        alert,
+      })
     );
   };
 

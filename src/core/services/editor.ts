@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 export const uploadImage = async (
   image: string
@@ -13,7 +13,7 @@ export const uploadImage = async (
         .ref()
         .child('library')
         .child(user.uid)
-        .child(`photo: ${uuid()}`)
+        .child(`photo: ${uuidv4()}`)
         .put(blob)
     : Promise.resolve(null);
 };

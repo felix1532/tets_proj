@@ -1,5 +1,5 @@
-import { ListPhotos } from '../../../core/interfaces/list-photos';
+import { ListGallery } from '../../../core/interfaces/list-gallery';
 
 export interface Props {
-  gallery: Array<ListPhotos>;
+  gallery: Array<ListGallery>;
 }

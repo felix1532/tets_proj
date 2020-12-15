@@ -23,14 +23,15 @@ import AlertTemplate from 'react-alert-template-basic';
 import { PrivateRoute } from './core/components/private-route/private-route';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { auth } from './core/sagas/auth';
+import sagas from './core/sagas/index';
 
 const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk))
 );
-sagaMiddleware.run(auth);
+sagaMiddleware.run(sagas);
 
 function App(): JSX.Element {
   const [login, setLogin] = useState<boolean>(false);

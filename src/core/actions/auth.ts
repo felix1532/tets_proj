@@ -16,15 +16,12 @@ export enum AuthActionTypes {
   ERROR_REGISTER = '[AUTH] ERROR_REGISTER',
 }
 
-export const signingInAction = createAction(
-  AuthActionTypes.SIGN_IN,
-  (payload: {
-    login: string;
-    password: string;
-    history: H.History;
-    alert: AlertManager;
-  }) => payload
-);
+export const signingInAction = createAction<{
+  login: string;
+  password: string;
+  history: H.History;
+  alert: AlertManager;
+}>(AuthActionTypes.SIGN_IN);
 export const successSignInAction = createAction(
   AuthActionTypes.SUCCESS_SIGN_IN
 );
@@ -33,10 +30,10 @@ export const errorSignInAction = createAction(
   (payload: { error: string }) => payload
 );
 
-export const signingOutAction = createAction(
-  AuthActionTypes.SIGNING_OUT,
-  (payload: { history: H.History; alert: AlertManager }) => payload
-);
+export const signingOutAction = createAction<{
+  history: H.History;
+  alert: AlertManager;
+}>(AuthActionTypes.SIGNING_OUT);
 export const successSignOutAction = createAction(
   AuthActionTypes.SUCCESS_SIGN_OUT
 );
@@ -45,7 +42,14 @@ export const errorSignOutAction = createAction(
   (payload: { error: string }) => payload
 );
 
-export const registerAction = createAction(AuthActionTypes.REGISTER);
+export const registerAction = createAction<{
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  history: H.History;
+  alert: AlertManager;
+}>(AuthActionTypes.REGISTER);
 export const successRegisterAction = createAction(
   AuthActionTypes.SUCCESS_REGISTER
 );

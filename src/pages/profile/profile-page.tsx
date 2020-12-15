@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import {
+  profileLoadRequestAction,
+  requestDownloadPhotoAction,
+  requestUpdateNameProfile,
+  requestUpdateSurnameProfile,
+  requestUploadPhotoAction,
+} from '../../core/actions/profile';
 import { Loading } from '../../core/components/loading/loading';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import { readAsDataUrl } from '../../core/helpers/read-as-data-url';
 import { selectProfileState } from '../../core/selectors/profile';
-import {
-  downloadPhotoProfile,
-  downloadProfile,
-  updateNameProfile,
-  updateSurnameProfile,
-  uploadPhotoProfile,
-} from '../../core/thunks/profile';
 import './styles.css';
 
 export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
@@ -28,8 +28,8 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   const [loadingProfile, setLoadingProfile] = useState<boolean>(true);
 
   useEffect(() => {
-    dispatch(downloadProfile());
-    dispatch(downloadPhotoProfile());
+    dispatch(profileLoadRequestAction());
+    dispatch(requestDownloadPhotoAction());
   }, [dispatch]);
 
   useEffect(() => {
@@ -66,13 +66,13 @@ export const ProfilePage = React.memo(function ProfilePage(): JSX.Element {
   const updateProfileHandler = useCallback(() => {
     const { user } = stateProfile;
     if (user.name !== name) {
-      dispatch(updateNameProfile(name, history, alert));
+      dispatch(requestUpdateNameProfile({ name, history, alert }));
     }
     if (user.surname !== surname) {
-      dispatch(updateSurnameProfile(surname, history, alert));
+      dispatch(requestUpdateSurnameProfile({ surname, history, alert }));
     }
     if (image) {
-      dispatch(uploadPhotoProfile(image, history, alert));
+      dispatch(requestUploadPhotoAction({ image, history, alert }));
     }
   }, [name, surname, email, image, dispatch, history]);
 

@@ -14,7 +14,7 @@ const initialState = {
 
 export const reducer = handleActions<State>(
   {
-    [EditorActionsType.START_UPLOAD_IMG_EDITOR]: (state: State) => ({
+    [EditorActionsType.REQUEST_UPLOAD_IMG_EDITOR]: (state: State) => ({
       ...state,
       isLoading: true,
     }),
@@ -23,7 +23,7 @@ export const reducer = handleActions<State>(
       isLoading: false,
       errorUpload: '',
     }),
-    [EditorActionsType.START_UPLOAD_IMG_EDITOR]: (
+    [EditorActionsType.ERROR_UPLOAD_IMG_EDITOR]: (
       state: State,
       action: AnyAction
     ) => ({

@@ -46,7 +46,7 @@
 	left: 0;
 	opacity: 0;
 	transition: opacity .5s;
-	background: rgba(14, 61, 5, 0.4);
+	background: rgba(3, 3, 3, 0.4);
 	color: white;	
 	display: flex;
 	align-items: center;
@@ -65,7 +65,7 @@
 	left: 0;
 	opacity: 0;
 	transition: opacity .5s;
-	background: rgba(58, 1, 8, 0.4);
+	background: rgba(3, 3, 3, 0.4);
 	color: white;	
 	display: flex;
 	align-items: center;
@@ -134,6 +134,56 @@
 	  font-size: 30px;
 	  border-radius: 20px;
   }
+
+  a.edit,.delete :link {
+	text-decoration: none;
+  }
+  
+  a.edit,.delete:visited {
+	text-decoration: none;
+  }
+  
+  a.edit,.delete:hover {
+	text-decoration: none;
+  }
+  
+  a.edit,.delete:active {
+	text-decoration: none;
+  }
+
+a.edit:link {
+	color: green;
+  }
+  
+  a.edit:visited {
+	color: white;
+  }
+  
+  a.edit:hover {
+	color: green;
+  }
+  
+  a.edit:active {
+	color: green;
+  }
+
+  a.delete:link {
+	color: red;
+  }
+  
+  a.delete:visited {
+	color: white;
+  }
+  
+  a.delete:hover {
+	color: red;
+  }
+  
+  a.delete:active {
+	color: red;
+  }
+  
+
 
   ::-webkit-scrollbar{
 	  width: 7px;

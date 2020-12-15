@@ -1,23 +1,23 @@
-import { ListPhotos } from '../interfaces/list-photos';
+import { ListGallery } from '../interfaces/list-gallery';
 import { AnyAction } from 'redux';
 import { handleActions } from 'redux-actions';
 import { GalleryActionsType } from '../actions/gallery';
 
 export interface State {
-  gallery: Array<ListPhotos>;
+  gallery: Array<ListGallery>;
   isLoading: boolean;
   error: string;
 }
 
 const initialState = {
-  gallery: [{ photo: '', fullPath: '' }],
+  gallery: [{ photo: '', fullPath: '', timeCreated: '' }],
   isLoading: true,
   error: '',
 };
 
 export const reducer = handleActions<State>(
   {
-    [GalleryActionsType.START_DOWNLOAD_PHOTO_GALLERY]: (state: State) => ({
+    [GalleryActionsType.REQUEST_DOWNLOAD_PHOTO_GALLERY]: (state: State) => ({
       ...state,
       isLoading: true,
       error: '',
@@ -38,7 +38,7 @@ export const reducer = handleActions<State>(
       error: action.payload,
       isLoading: false,
     }),
-    [GalleryActionsType.START_DELETE_PHOTO_GALLERY]: (state: State) => ({
+    [GalleryActionsType.REQUEST_DELETE_PHOTO_GALLERY]: (state: State) => ({
       ...state,
       error: '',
       isLoading: true,

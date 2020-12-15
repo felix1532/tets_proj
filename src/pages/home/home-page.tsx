@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { requestDownloadPhotoGallery } from '../../core/actions/gallery';
+import {
+  profileLoadRequestAction,
+  requestDownloadPhotoAction,
+} from '../../core/actions/profile';
 import { Loading } from '../../core/components/loading/loading';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
-import { ListPhotos } from '../../core/interfaces/list-photos';
+import { sortListGallery } from '../../core/helpers/sort-list-gallery';
+import { ListGallery } from '../../core/interfaces/list-gallery';
 import { selectGalleryState } from '../../core/selectors/gallery';
 import { selectProfileState } from '../../core/selectors/profile';
-import { downloadGalleryPhoto } from '../../core/thunks/gallery';
-import {
-  downloadPhotoProfile,
-  downloadProfile,
-} from '../../core/thunks/profile';
 import { Gallery } from './components/gallery';
 import './styles.css';
 
@@ -25,7 +26,7 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [photo, setPhoto] = useState<string>('');
-  const [gallery, setGallery] = useState<Array<ListPhotos>>([]);
+  const [gallery, setGallery] = useState<Array<ListGallery>>([]);
   const [loadingProfile, setLoadingProfile] = useState<boolean>(true);
   const [loadingGallery, setLoadingGallery] = useState<boolean>(true);
 
@@ -36,13 +37,13 @@ export const HomePage = React.memo(function HomePage(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(downloadGalleryPhoto());
-    dispatch(downloadProfile());
-    dispatch(downloadPhotoProfile());
+    dispatch(profileLoadRequestAction());
+    dispatch(requestDownloadPhotoGallery());
+    dispatch(requestDownloadPhotoAction());
   }, [dispatch]);
 
   useEffect(() => {
-    setGallery(stateGallery.gallery);
+    setGallery(sortListGallery(stateGallery.gallery));
     setLoadingGallery(stateGallery.isLoading);
   }, [stateGallery]);
 

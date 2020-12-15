@@ -2,13 +2,12 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyBEKYEix9i9UO0khhnUWx9KIG8SZ9HSK0k',
-  authDomain: 'react-test-project-aabff.firebaseapp.com',
-  databaseURL: 'https://react-test-project-aabff.firebaseio.com',
-  projectId: 'react-test-project-aabff',
-  storageBucket: 'react-test-project-aabff.appspot.com',
-  messagingSenderId: '280780329134',
-  appId: '1:280780329134:web:c4da835912a65f33b7dd3f',
+  apiKey: 'AIzaSyDDKAYoayeJ51Ry7sLFTdeRs562i56U-H4',
+  authDomain: 'test-project-1a324.firebaseapp.com',
+  projectId: 'test-project-1a324',
+  storageBucket: 'test-project-1a324.appspot.com',
+  messagingSenderId: '963443967112',
+  appId: '1:963443967112:web:6ee56c8004111799934b3d',
 };
 
 export const authentication = firebase.initializeApp(firebaseConfig).auth();

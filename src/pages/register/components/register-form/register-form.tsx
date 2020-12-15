@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { register } from '../../../../core/thunks/auth';
+import { registerAction } from '../../../../core/actions/auth';
 import './styles.css';
 
 export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
@@ -48,7 +48,9 @@ export const RegisterForm = React.memo(function RegisterForm(): JSX.Element {
       setDifferentPassword(true);
       alert.error('Error: password are different');
     } else {
-      dispatch(register(name, surname, email, password, history, alert));
+      dispatch(
+        registerAction({ name, surname, email, password, history, alert })
+      );
     }
   }, [name, surname, email, password, repeatPassword, dispatch, history]);
 

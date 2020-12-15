@@ -29,7 +29,7 @@ const initialState = {
 
 export const reducer = handleActions<State>(
   {
-    [ProfileActionsType.START_LOAD_PROFILE]: (state: State) => ({
+    [ProfileActionsType.LOAD_PROFILE_REQUEST]: (state: State) => ({
       ...state,
       fieldsLoading: true,
     }),
@@ -50,7 +50,7 @@ export const reducer = handleActions<State>(
       fieldsLoading: false,
       errorProfile: action.payload,
     }),
-    [ProfileActionsType.START_DOWNLOAD_PHOTO_PROFILE]: (state: State) => ({
+    [ProfileActionsType.REQUEST_DOWNLOAD_PHOTO_PROFILE]: (state: State) => ({
       ...state,
       photoLoading: true,
     }),

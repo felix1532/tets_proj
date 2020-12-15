@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import TopBarNavigation from '../../core/components/top-nav-bar/top-bar-nav';
 import './styles.css';
 import { useDispatch } from 'react-redux';
-import { saveImageCanvas } from '../../core/thunks/editor';
 import { useAlert } from 'react-alert';
 import { Controls } from './components/controls/controls';
 import { ControlsConfig } from './controls-config';
 import { useLocation } from 'react-router-dom';
-import { ListPhotos } from '../../core/interfaces/list-photos';
+import { ListGallery } from '../../core/interfaces/list-gallery';
+import { requestUploadImgEditor } from '../../core/actions/editor';
 
 export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const contextCanvas = React.useRef<CanvasRenderingContext2D>(null);
   const dispatch = useDispatch();
-  const location = useLocation<ListPhotos>();
+  const location = useLocation<ListGallery>();
   const alert = useAlert();
 
   const [color, setColor] = useState(ControlsConfig.blackColor);
@@ -92,7 +92,9 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   };
 
   const saveImageHandler = () => {
-    dispatch(saveImageCanvas(canvasRef.current.toDataURL(), alert));
+    dispatch(
+      requestUploadImgEditor({ image: canvasRef.current.toDataURL(), alert })
+    );
     clearCanvas();
   };
 
