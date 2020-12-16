@@ -10,7 +10,7 @@ export interface State {
 }
 
 const initialState = {
-  gallery: [{ photo: '', fullPath: '', timeCreated: '' }],
+  gallery: [{ photo: '', fullPath: '', timeCreated: '', name: '' }],
   isLoading: true,
   error: '',
 };

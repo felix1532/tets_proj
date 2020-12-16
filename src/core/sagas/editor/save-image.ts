@@ -10,7 +10,7 @@ function* saveImageWorker({
   payload,
 }: ReturnType<typeof EditorActions.requestUploadImgEditor>): Generator {
   try {
-    const user = yield call(uploadImage, payload.image);
+    const user = yield call(uploadImage, payload.image, payload.fullPath);
     if (user) {
       yield put(EditorActions.successUploadImgEditor());
       payload.alert.success('Success upload photo!');

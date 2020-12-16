@@ -16,6 +16,7 @@ export const downloadGalleryPhoto = async (): Promise<
       await {
         photo: photo.getDownloadURL(),
         fullPath: photo.fullPath,
+        name: photo.name,
         timeCreated: photo.getMetadata(),
       }
   );

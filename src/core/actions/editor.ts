@@ -9,6 +9,7 @@ export enum EditorActionsType {
 export const requestUploadImgEditor = createAction<{
   image: string;
   alert: AlertManager;
+  fullPath?: string;
 }>(EditorActionsType.REQUEST_UPLOAD_IMG_EDITOR);
 export const successUploadImgEditor = createAction(
   EditorActionsType.SUCCESS_UPLOAD_IMG_EDITOR

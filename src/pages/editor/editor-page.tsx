@@ -28,9 +28,12 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   useEffect(() => {
     contextCanvas.current = canvasRef.current.getContext('2d');
     if (location.state) {
-      const photo = new Image();
-      photo.src = location.state.photo;
-      contextCanvas.current.drawImage(photo, 0, 0);
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.onload = () => {
+        contextCanvas.current.drawImage(image, 0, 0);
+      };
+      image.src = location.state.photo;
     }
   }, []);
 
@@ -92,9 +95,23 @@ export const EditorPage = React.memo(function EditorPage(): JSX.Element {
   };
 
   const saveImageHandler = () => {
-    dispatch(
-      requestUploadImgEditor({ image: canvasRef.current.toDataURL(), alert })
-    );
+    if (location.state) {
+      dispatch(
+        requestUploadImgEditor({
+          image: canvasRef.current.toDataURL(),
+          alert,
+          fullPath: location.state.name,
+        })
+      );
+    } else {
+      dispatch(
+        requestUploadImgEditor({
+          image: canvasRef.current.toDataURL(),
+          alert,
+        })
+      );
+    }
+
     clearCanvas();
   };
 

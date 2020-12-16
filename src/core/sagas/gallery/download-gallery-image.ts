@@ -36,6 +36,7 @@ function* downloadPhotoGalleryWorker(): Generator {
                 .timeCreated
             }`,
             fullPath: (responseListPromises as ItemGallery[])[index].fullPath,
+            name: (responseListPromises as ItemGallery[])[index].name,
           };
         }
       );
